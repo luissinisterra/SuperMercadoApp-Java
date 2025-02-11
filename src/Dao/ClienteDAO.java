@@ -38,7 +38,7 @@ public class ClienteDAO {
     public void agregarCliente(Cliente cliente) throws EmailInvalidoException {
         String sql = "INSERT INTO Clientes (nombre_completo,telefono,email)"
                 + " VALUES (?,?,?)";
-        try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+                try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setString(1, cliente.getNombreCompleto());
             pstmt.setString(2, cliente.getTelefono());
@@ -50,26 +50,26 @@ public class ClienteDAO {
         }
     }
 
-    public ArrayList<Cliente> getClientes() {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM Clientes";
+        public ArrayList<Cliente> getClientes() {
+            ArrayList<Cliente> clientes = new ArrayList<>();
+            String sql = "SELECT * FROM Clientes";
 
-        try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-            ResultSet rs = pstmt.executeQuery();
+            try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+                ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                int id = rs.getInt("id_cliente");
-                String nombre = rs.getString("nombre_completo");
-                String telefono = rs.getString("telefono");
-                String email = rs.getString("email");
+                while (rs.next()) {
+                    int id = rs.getInt("id_cliente");
+                    String nombre = rs.getString("nombre_completo");
+                    String telefono = rs.getString("telefono");
+                    String email = rs.getString("email");
 
-                clientes.add(new Cliente(id, nombre, telefono, email));
+                    clientes.add(new Cliente(id, nombre, telefono, email));
+                }
+            } catch (SQLException e) {
+                System.out.println("FALLO AL OBTENER CLIENTES" + e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println("FALLO AL OBTENER CLIENTES" + e.getMessage());
+            return clientes;
         }
-        return clientes;
-    }
 
     public void eliminarCliente(int idCliente) {
         String sql = "DELETE FROM Clientes WHERE id_cliente = ?";

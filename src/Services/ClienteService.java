@@ -72,7 +72,6 @@ public class ClienteService implements IClienteService {
     public boolean isVacioCampo(Cliente cliente) {
         return cliente.getEmail().trim().isEmpty()
                 || cliente.getNombreCompleto().trim().isEmpty() || cliente.getTelefono().trim().isEmpty();
-
     }
     
     public int buscarIdCliente(String texto){

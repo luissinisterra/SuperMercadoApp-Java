@@ -67,5 +67,4 @@ public class VentaService {
         return ventasFiltradas;
     }
 
-
 }
